@@ -5,5 +5,5 @@
  */
 
 $app->get('/', function ($request, $response) {
-    return 'Home page';
+    return $this->view->render($response, 'welcome.twig');
 });
