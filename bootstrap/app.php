@@ -12,6 +12,10 @@ $app = new \Slim\App([
 
 $container = $app->getContainer();
 
+// Loading .env file for configuration
+$dotenv = new \Dotenv\Dotenv(__DIR__ . '/../');
+$dotenv->load();
+
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/../resources/views/', [
         'cache' => false
