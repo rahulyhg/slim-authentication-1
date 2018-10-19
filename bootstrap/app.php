@@ -16,6 +16,17 @@ $container = $app->getContainer();
 $dotenv = new \Dotenv\Dotenv(__DIR__ . '/../');
 $dotenv->load();
 
+// Loading database handler (Eloquent ORM)
+$capsule = new Illuminate\Database\Capsule\Manager();
+$dbConfig = require __DIR__ . '/../config/database.php'; // TODO: Make a config class for handling these kind of crap.
+$capsule->addConnection($dbConfig['mysql']);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
+$container['db'] = function () use ($capsule) {
+    return $capsule;
+};
+
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/../resources/views/', [
         'cache' => false
