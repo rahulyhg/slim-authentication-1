@@ -1,7 +1,5 @@
 <?php
 
-use Slim\Container;
-
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -27,7 +25,7 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$container['PagesController'] = function (Container $container) {
+$container['PagesController'] = function (\Slim\Container $container) {
     return new \App\Controllers\PagesController($container);
 };
 
