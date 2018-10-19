@@ -44,4 +44,8 @@ $container['PagesController'] = function (\Slim\Container $container) {
     return new \App\Controllers\PagesController($container);
 };
 
+$container['AuthController'] = function (\Slim\Container $container) {
+    return new \App\Controllers\Auth\AuthController($container);
+};
+
 require __DIR__ . '/../app/routes.php';

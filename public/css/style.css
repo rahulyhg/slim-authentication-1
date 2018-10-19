@@ -9,3 +9,12 @@ body {
     padding-top: 30px;
     padding-bottom: 40px;
 }
+
+.heading {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+.heading:hover {
+    text-decoration: none;
+}
