@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Controllers\Controller;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Respect\Validation\Validator as v;
 
 class AuthController extends Controller
 {
@@ -26,6 +27,16 @@ class AuthController extends Controller
      */
     public function signup(Request $request, Response $response)
     {
+        $validation = $this->validator->validate([
+            'name'      => v::notEmpty()->alnum()->length(5, 100),
+            'email'     => v::notEmpty()->email(),
+            'password'  => v::notEmpty()->noWhitespace()->length(6, 20),
+        ]);
+
+        if ($validation->fails()) {
+            return $response->withRedirect($this->router->pathFor('auth.signup'));
+        }
+
         User::create([
             'email'    => $request->getParam('email'),
             'name'     => $request->getParam('name'),
@@ -34,8 +45,6 @@ class AuthController extends Controller
             ])
         ]);
 
-        return $response->withRedirect(
-            $this->router->pathFor('home')
-        );
+        return $response->withRedirect($this->router->pathFor('home'));
     }
 }

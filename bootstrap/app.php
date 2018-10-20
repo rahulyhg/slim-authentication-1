@@ -40,6 +40,10 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$container['validator'] = function (\Slim\Container $container) {
+  return new \App\Validation\Validator($container->request);
+};
+
 $container['PagesController'] = function (\Slim\Container $container) {
     return new \App\Controllers\PagesController($container);
 };
