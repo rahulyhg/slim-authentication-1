@@ -18,3 +18,12 @@ body {
 .heading:hover {
     text-decoration: none;
 }
+
+.has-error > input {
+    border: 1px solid red;
+}
+
+.form-helper-text {
+    font-size: 13.5px;
+    color: red !important;
+}
