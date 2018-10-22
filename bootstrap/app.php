@@ -40,6 +40,9 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+// Registering custom rules
+\Respect\Validation\Validator::with('App\\Validation\\Rules\\');
+
 $container['validator'] = function (\Slim\Container $container) {
   return new \App\Validation\Validator($container->request);
 };
