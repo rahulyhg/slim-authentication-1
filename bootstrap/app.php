@@ -54,5 +54,6 @@ $container['AuthController'] = function (\Slim\Container $container) {
 
 // Adding middlewares to application layer
 $app->add(new \App\Middlewares\ValidationErrorsMiddleware($container));
+$app->add(new \App\Middlewares\OldInputMiddleware($container));
 
 require __DIR__ . '/../app/routes.php';
