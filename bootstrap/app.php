@@ -39,6 +39,11 @@ $container['view'] = function ($container) {
         $container->request->getUri()
     ));
 
+    $view->getEnvironment()->addGlobal('auth', [
+        'check' => $container->auth->check(),
+        'user'  => $container->auth->user(),
+    ]);
+
     return $view;
 };
 

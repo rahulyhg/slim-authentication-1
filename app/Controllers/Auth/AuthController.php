@@ -47,7 +47,7 @@ class AuthController extends Controller
             return $this->redirect('auth.signup');
         }
 
-        User::create([
+        $user = User::create([
             'email'    => $request->getParam('email'),
             'name'     => $request->getParam('name'),
             'password' => password_hash($request->getParam('password'), PASSWORD_BCRYPT, [
@@ -55,9 +55,16 @@ class AuthController extends Controller
             ])
         ]);
 
+        $this->auth->signin($user);
+
         return $this->redirect('home');
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     public function signin(Request $request, Response $response)
     {
         $validation = $this->validator->validate([
@@ -78,6 +85,6 @@ class AuthController extends Controller
             return $this->redirect('auth.signin'); // with failed flash message
         }
 
-        return $this->redirect('home'); // with flash message
+        return $this->redirect('home'); // with success flash message
     }
 }

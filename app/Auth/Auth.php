@@ -43,15 +43,30 @@ class Auth
     }
 
     /**
+     * @return null|User
+     */
+    public function user(): ?User
+    {
+        return ($this->check()) ? User::find($_SESSION['user']['id']) : null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function check(): bool
+    {
+        return ! empty($_SESSION['user']);
+    }
+
+    /**
      * @param User $user
      */
-    protected function signin(User $user): void
+    public function signin(User $user): void
     {
         $_SESSION['user'] = [
             'id'            => $user->id,
             'name'          => $user->name,
             'email'         => $user->email,
-            'isLoggedIn'    => true,
         ];
     }
 }
