@@ -69,4 +69,13 @@ class Auth
             'email'         => $user->email,
         ];
     }
+
+    /**
+     * @return void
+     */
+    public function logout(): void
+    {
+        unset($_SESSION['user']);
+        session_regenerate_id(true);
+    }
 }

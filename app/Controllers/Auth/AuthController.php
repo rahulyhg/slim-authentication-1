@@ -35,7 +35,7 @@ class AuthController extends Controller
      * @param Response $response
      * @return Response
      */
-    public function signup(Request $request, Response $response)
+    public function signup(Request $request, Response $response): Response
     {
         $validation = $this->validator->validate([
             'name'      => v::notEmpty()->alnum()->length(5, 100),
@@ -65,7 +65,7 @@ class AuthController extends Controller
      * @param Response $response
      * @return Response
      */
-    public function signin(Request $request, Response $response)
+    public function signin(Request $request, Response $response): Response
     {
         $validation = $this->validator->validate([
             'email'     => v::notEmpty()->email(),
@@ -82,9 +82,21 @@ class AuthController extends Controller
         );
 
         if (! $auth) {
-            return $this->redirect('auth.signin'); // with failed flash message
+            return $this->redirect('auth.signin');
         }
 
-        return $this->redirect('home'); // with success flash message
+        return $this->redirect('home');
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function signout(Request $request, Response $response): Response
+    {
+        $this->auth->logout();
+
+        return $this->redirect('home');
     }
 }
