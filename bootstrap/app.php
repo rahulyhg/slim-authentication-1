@@ -40,6 +40,10 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$container['csrf'] = function (\Psr\Container\ContainerInterface $container) {
+  return new \Slim\Csrf\Guard;
+};
+
 // Registering custom rules
 \Respect\Validation\Validator::with('App\\Validation\\Rules\\');
 
@@ -58,5 +62,7 @@ $container['AuthController'] = function (\Slim\Container $container) {
 // Adding middlewares to application layer
 $app->add(new \App\Middlewares\ValidationErrorsMiddleware($container));
 $app->add(new \App\Middlewares\OldInputMiddleware($container));
+$app->add(new \App\Middlewares\CsrfViewMiddleware($container));
+$app->add($container->csrf);
 
 require __DIR__ . '/../app/routes.php';

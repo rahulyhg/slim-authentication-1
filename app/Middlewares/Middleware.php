@@ -20,4 +20,9 @@ class Middleware
     {
         $this->container = $container;
     }
+
+    public function getView()
+    {
+        return $this->container->view->getEnvironment();
+    }
 }

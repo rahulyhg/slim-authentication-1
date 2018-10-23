@@ -29,7 +29,7 @@ class AuthController extends Controller
     {
         $validation = $this->validator->validate([
             'name'      => v::notEmpty()->alnum()->length(5, 100),
-            'email'     => v::notEmpty()->email()->emailAvailable(),
+            'email'     => v::notEmpty()->email()->unique('users.email'),
             'password'  => v::notEmpty()->noWhitespace()->length(6, 20),
         ]);
 

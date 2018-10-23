@@ -14,9 +14,7 @@ class ValidationErrorsMiddleware extends Middleware
      */
     public function __invoke($request, $response, $next): Response
     {
-        $this->container->view
-            ->getEnvironment()
-            ->addGlobal('errors', $_SESSION['errors'] ?? []);
+        $this->getView()->addGlobal('errors', $_SESSION['errors'] ?? []);
 
         unset($_SESSION['errors']);
 
