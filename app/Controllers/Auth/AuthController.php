@@ -23,6 +23,16 @@ class AuthController extends Controller
     /**
      * @param Request $request
      * @param Response $response
+     * @return mixed
+     */
+    public function showSignInForm(Request $request, Response $response)
+    {
+        return $this->view->render($response, 'auth/signin.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
      * @return Response
      */
     public function signup(Request $request, Response $response)
@@ -34,7 +44,7 @@ class AuthController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return $response->withRedirect($this->router->pathFor('auth.signup'));
+            return $this->redirect('auth.signup');
         }
 
         User::create([
@@ -45,6 +55,29 @@ class AuthController extends Controller
             ])
         ]);
 
-        return $response->withRedirect($this->router->pathFor('home'));
+        return $this->redirect('home');
+    }
+
+    public function signin(Request $request, Response $response)
+    {
+        $validation = $this->validator->validate([
+            'email'     => v::notEmpty()->email(),
+            'password'  => v::notEmpty()->noWhitespace()->length(6, 20),
+        ]);
+
+        if ($validation->fails()) {
+            return $this->redirect('auth.signin');
+        }
+
+        $auth = $this->auth->attempt(
+            $request->getParam('email'),
+            $request->getParam('password')
+        );
+
+        if (! $auth) {
+            return $this->redirect('auth.signin'); // with failed flash message
+        }
+
+        return $this->redirect('home'); // with flash message
     }
 }

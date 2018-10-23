@@ -24,4 +24,13 @@ class User extends Model
     protected $guarded = [
         'id',
     ];
+
+    /**
+     * @param string $email
+     * @return null|User
+     */
+    public static function getByEmail(string $email): ?self
+    {
+        return self::where('email', $email)->first();
+    }
 }

@@ -2,6 +2,8 @@
 
 session_start();
 
+use Psr\Container\ContainerInterface as Container;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = new \Slim\App([
@@ -40,22 +42,26 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$container['csrf'] = function (\Psr\Container\ContainerInterface $container) {
+$container['csrf'] = function (Container $container) {
   return new \Slim\Csrf\Guard;
+};
+
+$container['validator'] = function (Container $container) {
+  return new \App\Validation\Validator($container->request);
 };
 
 // Registering custom rules
 \Respect\Validation\Validator::with('App\\Validation\\Rules\\');
 
-$container['validator'] = function (\Slim\Container $container) {
-  return new \App\Validation\Validator($container->request);
+$container['auth'] = function (Container $container) {
+    return new \App\Auth\Auth($container);
 };
 
-$container['PagesController'] = function (\Slim\Container $container) {
+$container['PagesController'] = function (Container $container) {
     return new \App\Controllers\PagesController($container);
 };
 
-$container['AuthController'] = function (\Slim\Container $container) {
+$container['AuthController'] = function (Container $container) {
     return new \App\Controllers\Auth\AuthController($container);
 };
 
