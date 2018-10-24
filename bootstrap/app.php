@@ -44,7 +44,13 @@ $container['view'] = function ($container) {
         'user'  => $container->auth->user(),
     ]);
 
+    $view->getEnvironment()->addGlobal('flash', $container->flash);
+
     return $view;
+};
+
+$container['flash'] = function () {
+    return new \Slim\Flash\Messages;
 };
 
 $container['csrf'] = function (Container $container) {

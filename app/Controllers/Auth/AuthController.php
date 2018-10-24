@@ -57,6 +57,8 @@ class AuthController extends Controller
 
         $this->auth->signin($user);
 
+        $this->flash->addMessage('success', 'You have been signed up successfully !');
+
         return $this->redirect('home');
     }
 
@@ -82,9 +84,11 @@ class AuthController extends Controller
         );
 
         if (! $auth) {
+            $this->flash->addMessage('error', 'Email or password is invalid !');
             return $this->redirect('auth.signin');
         }
 
+        $this->flash->addMessage('success', 'You have been signed in successfully !');
         return $this->redirect('home');
     }
 
