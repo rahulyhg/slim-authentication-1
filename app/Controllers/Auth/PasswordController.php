@@ -42,7 +42,7 @@ class PasswordController extends Controller
         );
 
         $this->flash->addMessage('success', 'Your password has been changed successfully !');
-        
+
         return $this->redirect('home');
     }
 }
