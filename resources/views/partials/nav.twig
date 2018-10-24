@@ -5,7 +5,7 @@
     </nav>
     {% if auth.check %}
         <span>Welcome, {{ auth.user.name }} !</span> &nbsp; &nbsp;
-        <a class="btn btn-outline-primary" href="{{ path_for('home') }}">Change Password</a> &nbsp;&nbsp;
+        <a class="btn btn-outline-primary" href="{{ path_for('auth.changePwd') }}">Change Password</a> &nbsp;&nbsp;
         <a class="btn btn-outline-primary" href="{{ path_for('auth.signout') }}">Sign out</a>
     {% else %}
         <a class="btn btn-outline-success" href="{{ path_for('auth.signup') }}">Sign up</a> &nbsp;&nbsp;

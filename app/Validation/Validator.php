@@ -50,7 +50,7 @@ class Validator
     /**
      * @return bool
      */
-    public function fails(): bool
+    public function failed(): bool
     {
         return !empty($this->errors);
     }

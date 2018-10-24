@@ -76,6 +76,10 @@ $container['AuthController'] = function (Container $container) {
     return new \App\Controllers\Auth\AuthController($container);
 };
 
+$container['PasswordController'] = function (Container $container) {
+    return new \App\Controllers\Auth\PasswordController($container);
+};
+
 // Adding middlewares to application layer
 $app->add(new \App\Middlewares\ValidationErrorsMiddleware($container));
 $app->add(new \App\Middlewares\OldInputMiddleware($container));

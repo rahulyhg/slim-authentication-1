@@ -18,3 +18,7 @@ $app->post('/auth/signin', 'AuthController:signin');
 
 // Sign out
 $app->get('/auth/signout', 'AuthController:signout')->setName('auth.signout');
+
+// Change password
+$app->get('/auth/change-password', 'PasswordController:showChangePasswordForm')->setName('auth.changePwd');
+$app->post('/auth/change-password', 'PasswordController:changePassword');

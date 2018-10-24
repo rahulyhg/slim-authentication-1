@@ -43,7 +43,7 @@ class AuthController extends Controller
             'password'  => v::notEmpty()->noWhitespace()->length(6, 20),
         ]);
 
-        if ($validation->fails()) {
+        if ($validation->failed()) {
             return $this->redirect('auth.signup');
         }
 
@@ -74,7 +74,7 @@ class AuthController extends Controller
             'password'  => v::notEmpty()->noWhitespace()->length(6, 20),
         ]);
 
-        if ($validation->fails()) {
+        if ($validation->failed()) {
             return $this->redirect('auth.signin');
         }
 
