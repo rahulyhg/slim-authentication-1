@@ -20,9 +20,11 @@ class PasswordController extends Controller
     }
 
     /**
-     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
      */
-    public function changePassword()
+    public function changePassword(Request $request, Response $response)
     {
         $validation = $this->validator->validate([
             'password_old' => v::noWhitespace()->notEmpty()->matchesPassword(
@@ -35,6 +37,12 @@ class PasswordController extends Controller
             return $this->redirect('auth.changePwd');
         }
 
-        dd('Passed.');
+        $this->auth->user()->setPassword(
+            $request->getParam('password')
+        );
+
+        $this->flash->addMessage('success', 'Your password has been changed successfully !');
+        
+        return $this->redirect('home');
     }
 }

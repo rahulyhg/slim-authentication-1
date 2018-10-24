@@ -33,4 +33,17 @@ class User extends Model
     {
         return self::where('email', $email)->first();
     }
+
+    /**
+     * @param string $password
+     * @return bool
+     */
+    public function setPassword(string $password): bool
+    {
+       return $this->update([
+           'password' => password_hash($password, PASSWORD_BCRYPT, [
+               'cost' => 12,
+           ])
+       ]);
+    }
 }
