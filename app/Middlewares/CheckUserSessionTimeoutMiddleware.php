@@ -24,9 +24,9 @@ class CheckUserSessionTimeoutMiddleware extends Middleware
                 return $response->withRedirect(
                     $this->container->router->pathFor('home')
                 );
-            } else {
-                $_SESSION['user']['timeout'] = time();
             }
+
+            $_SESSION['user']['timeout'] = time();
         }
 
 
