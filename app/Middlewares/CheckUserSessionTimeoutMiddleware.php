@@ -19,7 +19,7 @@ class CheckUserSessionTimeoutMiddleware extends Middleware
         if ($this->container->auth->check()) {
             $timeout = $_SESSION['user']['timeout'];
 
-            if ((time() - $timeout) >= 10) {
+            if ((time() - $timeout) >= 300) { // 5 minutes
                 $this->container->auth->logout();
                 return $response->withRedirect(
                     $this->container->router->pathFor('home')
