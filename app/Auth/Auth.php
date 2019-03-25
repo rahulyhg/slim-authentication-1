@@ -5,6 +5,11 @@ namespace App\Auth;
 use App\Models\User;
 use Psr\Container\ContainerInterface as Container;
 
+/**
+ * Class Auth
+ *
+ * @package App\Auth
+ */
 class Auth
 {
     /**
@@ -67,6 +72,7 @@ class Auth
             'id'            => $user->id,
             'name'          => $user->name,
             'email'         => $user->email,
+            'timeout'       => time(),
         ];
     }
 

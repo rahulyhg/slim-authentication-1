@@ -84,6 +84,7 @@ $container['PasswordController'] = function (Container $container) {
 $app->add(new \App\Middlewares\ValidationErrorsMiddleware($container));
 $app->add(new \App\Middlewares\OldInputMiddleware($container));
 $app->add(new \App\Middlewares\CsrfViewMiddleware($container));
+$app->add(new \App\Middlewares\CheckUserSessionTimeoutMiddleware($container));
 $app->add($container->csrf);
 
 require __DIR__ . '/../app/routes.php';
